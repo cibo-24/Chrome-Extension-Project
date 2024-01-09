@@ -11,16 +11,23 @@ input {
     box-sizing: border-box;
     border: 1px solid #5f9341;
     margin: 4px;
+    border-radius: 20px;
 }
 
 button {
     background-color: #5f9341;
     color: white;
     padding: 10px 20px;
-    border: none;
+    border: 1px solid #5f9341;
     border-radius: 15px;
     font-weight: bold;
 } 
+
+#delete-btn {
+    background-color: white;
+    color: #5f9341;
+}
+
 
 ul {
     /* listenin ul-ol yapısını siler */
@@ -34,5 +41,41 @@ li {
 }
 
 a {
+    color: #5f9341;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 20px;
+   
+
+}
+
+.item {
+    background-color: #5f9341;
+    padding: 10px;
+
+}
+
+.item1 {
+    height: 80px;
+    border-radius: 10px;
+}
+
+.item2{
+    height: 60px;
+    border-radius: 10px;
+}
+
+.item3 {
+    height: 40px;
+    border-radius: 10px;
+}
+
+#created {
     color: #5f9341;
 }

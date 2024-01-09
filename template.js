@@ -1,47 +1,62 @@
-// button onClick işleyicisine bir func yarattık.
-
-/* 
-
-function saveLead () {
-    alert("say hi!")
-};
-
-*/
-
-
-// Bu yöntemi birde eventHandlers ile addEventlistener() ile yapalım.
-
-let myLeads = [];
+let myLeads=[];
 const inputEl = document.getElementById("input-el");
 const inputBtn = document.getElementById("input-btn");
 const ulEl = document.getElementById("ul-el");
+const deleteBtn = document.getElementById("delete-btn");
+const tabBtn = document.getElementById("tab-btn");
 
-localStorage.setItem("myLeads", "www.examplelead.com");
+const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
+
+if(leadsFromLocalStorage) {
+    myLeads = leadsFromLocalStorage;
+    render(myLeads);
+}
+
+//tab-btn
+tabBtn.addEventListener("click", function() {
+    // chrome api-tab current
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        myLeads.push(tabs[0].url);
+        localStorage.setItem("myLeads",JSON.stringify(myLeads));
+        render(myLeads);
+    });
+});
+
+// render func'ını ve parametre
+function render(leads) {
+    
+    let listItems  = "";
+    for (let i=0; i < leads.length; i++)  {
+        
+        listItems += ` 
+        <li>
+        <a target='_blank' href='${leads[i]}'>
+         ${leads[i]}
+         </a>
+        </li> `;
+       
+    }
+    ulEl.innerHTML = listItems;
+};
 
 inputBtn.addEventListener("click", function () {
     // inputa girilen veriyi almak ve yazdırmak için,
    myLeads.push(inputEl.value);
    inputEl.value = "";
-   renderLeads();
+
+
+    localStorage.setItem("myLeads", JSON.stringify(myLeads));
+   render(myLeads);
 
 });
 
-// render func'ını 
-function renderLeads() {
-    
-let listItems  = "";
-for (let i=0; i < myLeads.length; i++)  {
-    // innerHTML'de textContent gibi çalışır ancak html öğelerini çalıştırmak için innerHTML kullanmamız gerekmektedir.
-    listItems += ` 
-    <li>
-    <a target='_blank' href='${myLeads[i]}'>
-     ${myLeads[i]}
-     </a>
-    </li> `;
-   
-}
-ulEl.innerHTML = listItems;
-};
+
+// delete button
+deleteBtn.addEventListener("dblclick", function (){
+    localStorage.clear();
+    myLeads = [];
+    render(myLeads);
+})
 
 
 
@@ -57,19 +72,8 @@ ulEl.innerHTML = listItems;
 
 
 
-// işi parçacıklara ayırmak
 
-    // "li" oluşturuldu.
-    // li textContent ile değiştirildi.
-    // ulEl
 
-    // const li =  document.createElement("li");
 
-    // li.textContent = myLeads[i];
 
-    // append(), html öğelerini iç içe eklemeye yarar.
-
-    // yani <ul> <li> </li> </ul> şeklinde olur.
-        
-    // ulEl.append(li);
 
