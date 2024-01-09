@@ -2,6 +2,6 @@
 Google extension application I created with JavaScript 🌟
 
 
-<img src="./chrome-extension.gif" alt="project-gif">
+<img src="./chrome-extension.png" alt="project-gif">
 
 # Author: cibo-24
